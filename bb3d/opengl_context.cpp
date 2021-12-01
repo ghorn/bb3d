@@ -6,9 +6,10 @@
 #include <chrono>     // for duration, duration_cast, operator-, high_resolut...
 #include <cstdio>     // for fprintf, stderr, sprintf
 #include <cstdlib>    // for EXIT_FAILURE
-#include <queue>      // for queue
-#include <string>     // for string
-#include <vector>     // for vector
+#include <iostream>
+#include <queue>   // for queue
+#include <string>  // for string
+#include <vector>  // for vector
 
 #define GLFW_INCLUDE_NONE
 #include <GLFW/glfw3.h>  // for glfwWindowHint, glfwGetWindowUserPointer, glfwGe...
@@ -21,11 +22,42 @@
 #include "bb3d/gl_error.hpp"           // for GlDebugOutput
 #include "bb3d/shader/colorlines.hpp"  // for ColoredVec3, ColorLines
 #include "bb3d/shader/freetype.hpp"    // for Freetype
+#include "tools/cpp/runfiles/runfiles.h"
 
 namespace bb3d {
 static GLFWwindow *OpenglSetup(WindowState *window_state);
 
-Window::Window() : window_state_(std::make_unique<bb3d::WindowState>(bb3d::WindowState())) {
+std::string g_argv0;
+
+std::string Window::GetBazelRlocation(const std::string &path) {
+  using bazel::tools::cpp::runfiles::Runfiles;
+
+  if (g_argv0.empty()) {
+    std::cerr << "Aborting because Window has not been initialized. Argv[0] needed for runfiles."
+              << std::endl;
+    bb3d::exit_thread_safe(EXIT_FAILURE);
+  }
+
+  std::string error;
+  std::unique_ptr<Runfiles> bazel_runfiles(Runfiles::Create(g_argv0));
+  if (bazel_runfiles == nullptr) {
+    std::cerr << error << std::endl;
+    std::cerr << "Aborting because Runfiles not initialized." << std::endl;
+    bb3d::exit_thread_safe(EXIT_FAILURE);
+  }
+
+  std::string runfile_path = bazel_runfiles->Rlocation("bb3d/" + path);
+  if (runfile_path.empty()) {
+    std::cerr << "Can't find bazel runfile for '" << path << "'" << std::endl;
+    exit_thread_safe(EXIT_FAILURE);
+  }
+
+  return runfile_path;
+}
+
+Window::Window(char *argv0)
+    : window_state_(std::make_unique<bb3d::WindowState>(bb3d::WindowState())) {
+  g_argv0 = argv0;
   glfw_window = OpenglSetup(window_state_.get());
 };
 

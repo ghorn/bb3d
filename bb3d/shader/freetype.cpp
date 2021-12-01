@@ -11,12 +11,15 @@
 #include <string>       // for basic_string, allocator, string, operator<<, char_traits
 #include <utility>      // for pair
 
-#include "bb3d/assert.hpp"         // for exit_thread_safe
+#include "bb3d/assert.hpp"  // for exit_thread_safe
+#include "bb3d/opengl_context.hpp"
 #include "bb3d/shader/shader.hpp"  // for Shader
 
 namespace bb3d {
 
-Freetype::Freetype(int font_size) : shader_("bb3d/shader/freetype.vs", "bb3d/shader/freetype.fs") {
+Freetype::Freetype(int font_size)
+    : shader_(Window::GetBazelRlocation("bb3d/shader/freetype.vs"),
+              Window::GetBazelRlocation("bb3d/shader/freetype.fs")) {
   // FreeType
   // --------
   FT_Library ft = nullptr;

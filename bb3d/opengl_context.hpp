@@ -42,13 +42,15 @@ class WindowState {
 
 class Window {
  public:
-  explicit Window();
+  explicit Window(char *argv0);
   ~Window();
   struct Size {
     int width;
     int height;
   };
 
+  // Find a bazel runfile. Requires Window to be initialized with argv[0] first.
+  static std::string GetBazelRlocation(const std::string &path);
   bool ShouldClose();
   [[nodiscard]] Size GetSize() const;
   [[nodiscard]] glm::mat4 GetProjectionTransformation() const;

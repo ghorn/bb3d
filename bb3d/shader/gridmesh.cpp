@@ -9,11 +9,13 @@
 #include <vector>              // for vector
 
 #include "bb3d/assert.hpp"  // for ASSERT
+#include "bb3d/opengl_context.hpp"
 
 namespace bb3d {
 
 Gridmesh::Gridmesh(const std::string &image_path)
-    : shader_("bb3d/shader/gridmesh.vs", "bb3d/shader/gridmesh.fs") {
+    : shader_(Window::GetBazelRlocation("bb3d/shader/gridmesh.vs"),
+              Window::GetBazelRlocation("bb3d/shader/gridmesh.fs")) {
   num_indices_ = 0;
   vertex_buffer_size_ = 0;
   index_buffer_size_ = 0;

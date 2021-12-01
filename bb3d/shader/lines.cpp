@@ -2,9 +2,13 @@
 
 #include <GL/glew.h>  // for GLint, GL_ARRAY_BUFFER, glEnable, glBindBuffer, glBindVertexArray
 
+#include "bb3d/opengl_context.hpp"
+
 namespace bb3d {
 
-Lines::Lines() : shader_("bb3d/shader/lines.vs", "bb3d/shader/lines.fs") {
+Lines::Lines()
+    : shader_(Window::GetBazelRlocation("bb3d/shader/lines.vs"),
+              Window::GetBazelRlocation("bb3d/shader/lines.fs")) {
   current_buffer_size_ = 0;
 
   // set up vertex data (and buffer(s)) and configure vertex attributes

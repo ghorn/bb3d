@@ -46,6 +46,7 @@ cc_library(
     ],
     visibility = ["//visibility:public"],
     copts = copts + ["-I/usr/include/freetype2"],
+    deps = ["@bazel_tools//tools/cpp/runfiles"],
     data = [
         "bb3d/shader/colorlines.vs",
         "bb3d/shader/colorlines.fs",
@@ -58,4 +59,17 @@ cc_library(
         "bb3d/shader/lines.vs",
         "bb3d/shader/lines.fs",
     ],
+)
+
+cc_binary(
+    name = "vis",
+    srcs = [
+        "example.cpp",
+    ],
+    visibility = ["//visibility:private"],
+    deps = ['@bb3d//:bb3d'],
+    linkopts = [
+        '-lpthread',
+    ],
+    copts = copts,
 )

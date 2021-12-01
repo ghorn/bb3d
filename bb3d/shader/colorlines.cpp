@@ -2,9 +2,13 @@
 
 #include <GL/glew.h>  // for GLint, GL_ARRAY_BUFFER, glEnable, glBindBuffer, glBindVertexArray
 
+#include "bb3d/opengl_context.hpp"
+
 namespace bb3d {
 
-ColorLines::ColorLines() : shader_("bb3d/shader/colorlines.vs", "bb3d/shader/colorlines.fs") {
+ColorLines::ColorLines()
+    : shader_(Window::GetBazelRlocation("bb3d/shader/colorlines.vs"),
+              Window::GetBazelRlocation("bb3d/shader/colorlines.fs")) {
   point_size_ = 1;
 
   current_buffer_size_ = 0;
