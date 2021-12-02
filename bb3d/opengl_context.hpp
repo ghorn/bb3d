@@ -48,10 +48,10 @@ class Window {
     int width;
     int height;
   };
+  void Close();
 
   // Find a bazel runfile. Requires Window to be initialized with argv[0] first.
   static std::string GetBazelRlocation(const std::string &path);
-  bool ShouldClose();
   [[nodiscard]] Size GetSize() const;
   [[nodiscard]] glm::mat4 GetProjectionTransformation() const;
   [[nodiscard]] glm::mat4 GetOrthographicProjection() const;
@@ -67,6 +67,7 @@ class Window {
   void SetCameraDistance(float distance){window_state_->camera.SetDistance(distance);};
 
  private:
+  bool ShouldClose();
   GLFWwindow *glfw_window;
   std::unique_ptr<WindowState> window_state_;
 };

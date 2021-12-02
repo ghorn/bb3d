@@ -66,6 +66,10 @@ Window::~Window() {
   glfwTerminate();
 };
 
+void Window::Close() {
+  glfwSetWindowShouldClose(glfw_window, GLFW_TRUE);
+}
+
 bool Window::ShouldClose() { return glfwWindowShouldClose(glfw_window) != 0; }
 
 void Window::SwapBuffers() { glfwSwapBuffers(glfw_window); }
