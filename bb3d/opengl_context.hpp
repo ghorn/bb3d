@@ -61,6 +61,10 @@ class Window {
   void Run(std::function<void(key_t key)> &handle_keypress,
            std::function<void()> &update_visualization,
            std::function<void(const glm::mat4 &view, const glm::mat4 &proj)> &draw_visualization);
+  void SetCameraFocus(glm::vec3 new_focus){window_state_->camera.SetFocus(new_focus);};
+  void SetCameraAzimuthDeg(float azimuth_deg){window_state_->camera.SetAzimuthDeg(azimuth_deg);};
+  void SetCameraElevationDeg(float elevation_deg){window_state_->camera.SetElevationDeg(elevation_deg);};
+  void SetCameraDistance(float distance){window_state_->camera.SetDistance(distance);};
 
  private:
   GLFWwindow *glfw_window;
