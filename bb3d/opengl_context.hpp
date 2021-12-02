@@ -10,6 +10,7 @@
 #include <queue>        // for queue
 
 #include "bb3d/camera.hpp"  // for Camera
+#include "bb3d/shader/freetype.hpp"
 
 namespace bb3d {
 
@@ -49,6 +50,8 @@ class Window {
     int height;
   };
   void Close();
+
+  void RenderText(Freetype &freetype, const std::string &text, float x, float y, const glm::vec3 &color);
 
   // Find a bazel runfile. Requires Window to be initialized with argv[0] first.
   static std::string GetBazelRlocation(const std::string &path);

@@ -327,6 +327,10 @@ static std::vector<std::vector<bb3d::ColoredVec3>> AxesLines(const bb3d::Camera 
   return segments;
 }
 
+void Window::RenderText(Freetype &freetype, const std::string &text, float x, float y, const glm::vec3 &color) {
+  freetype.RenderText(GetOrthographicProjection(), text, x, y, color);
+}
+
 void Window::Run(
     std::function<void(key_t key)> &handle_keypress, std::function<void()> &update_visualization,
     std::function<void(const glm::mat4 &view, const glm::mat4 &proj)> &draw_visualization) {
