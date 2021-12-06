@@ -134,8 +134,10 @@ void GlDebugOutput(GLenum source, GLenum type, unsigned int id, GLenum severity,
   std::cout << std::endl;
   std::cout << std::endl;
 
-  std::cerr << boost::stacktrace::stacktrace();
-  exit_thread_safe(EXIT_FAILURE);
+  if (severity != GL_DEBUG_SEVERITY_NOTIFICATION) {
+    std::cerr << boost::stacktrace::stacktrace();
+    exit_thread_safe(EXIT_FAILURE);
+  }
 }
 
 };  // namespace bb3d
