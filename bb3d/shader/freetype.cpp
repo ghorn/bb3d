@@ -19,7 +19,8 @@ namespace bb3d {
 
 Freetype::Freetype(int font_size)
     : shader_(Window::GetBazelRlocation("bb3d/shader/freetype.vs"),
-              Window::GetBazelRlocation("bb3d/shader/freetype.fs")) {
+              Window::GetBazelRlocation("bb3d/shader/freetype.fs")),
+      characters_() {
   // FreeType
   // --------
   FT_Library ft = nullptr;

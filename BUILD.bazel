@@ -5,6 +5,7 @@ copts = [
     "-Wconversion",
     "-fdiagnostics-color=always",
     "-std=c++17",
+    "-Weffc++",
 ]
 
 cc_library(

@@ -8,7 +8,9 @@ namespace bb3d {
 
 Lines::Lines()
     : shader_(Window::GetBazelRlocation("bb3d/shader/lines.vs"),
-              Window::GetBazelRlocation("bb3d/shader/lines.fs")) {
+              Window::GetBazelRlocation("bb3d/shader/lines.fs")),
+      segment_sizes_(),
+      current_buffer_size_() {
   current_buffer_size_ = 0;
 
   // set up vertex data (and buffer(s)) and configure vertex attributes

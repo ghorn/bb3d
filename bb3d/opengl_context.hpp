@@ -29,7 +29,7 @@ struct MouseHandler {
 // The state which is stored by glfwSetWindowUserPointer.
 class WindowState {
  public:
-  WindowState() = default;
+  WindowState() : keypress_queue{}, camera{} {};
   ~WindowState() = default;
   [[nodiscard]] bool KeypressQueueEmpty() const;
   int PopKeypressQueue();
@@ -71,8 +71,9 @@ class Window {
 
  private:
   bool ShouldClose();
-  GLFWwindow *glfw_window;
   std::unique_ptr<WindowState> window_state_;
+  using unique_window_t = std::unique_ptr<GLFWwindow, decltype(&glfwDestroyWindow)>;
+  unique_window_t glfw_window;
 };
 
 };  // namespace bb3d

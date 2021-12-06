@@ -53,7 +53,7 @@ static void CheckCompileErrors(GLuint shader, const std::string &type) {
 // constructor generates the shader on the fly
 // ------------------------------------------------------------------------
 Shader::Shader(const std::string &vshader_path, const std::string &fshader_path,
-               const std::string &gshader_path) {
+               const std::string &gshader_path) : program_id_{} {
   // vertex shader
   const GLuint vertex = glCreateShader(GL_VERTEX_SHADER);
   std::string vshader_code = ReadFile(vshader_path);

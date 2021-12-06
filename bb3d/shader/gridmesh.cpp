@@ -15,10 +15,10 @@ namespace bb3d {
 
 Gridmesh::Gridmesh(const std::string &image_path)
     : shader_(Window::GetBazelRlocation("bb3d/shader/gridmesh.vs"),
-              Window::GetBazelRlocation("bb3d/shader/gridmesh.fs")) {
-  num_indices_ = 0;
-  vertex_buffer_size_ = 0;
-  index_buffer_size_ = 0;
+              Window::GetBazelRlocation("bb3d/shader/gridmesh.fs")),
+      num_indices_(0),
+      vertex_buffer_size_(0),
+      index_buffer_size_(0) {
 
   // set up vertex data (and buffer(s)) and configure vertex attributes
   // ------------------------------------------------------------------

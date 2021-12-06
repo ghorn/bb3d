@@ -8,10 +8,10 @@ namespace bb3d {
 
 ColorLines::ColorLines()
     : shader_(Window::GetBazelRlocation("bb3d/shader/colorlines.vs"),
-              Window::GetBazelRlocation("bb3d/shader/colorlines.fs")) {
+              Window::GetBazelRlocation("bb3d/shader/colorlines.fs")),
+      current_buffer_size_(0),
+      segment_sizes_() {
   point_size_ = 1;
-
-  current_buffer_size_ = 0;
 
   // set up vertex data (and buffer(s)) and configure vertex attributes
   // ------------------------------------------------------------------

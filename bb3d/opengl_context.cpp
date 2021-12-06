@@ -56,29 +56,28 @@ std::string Window::GetBazelRlocation(const std::string &path) {
 }
 
 Window::Window(char *argv0)
-    : window_state_(std::make_unique<bb3d::WindowState>(bb3d::WindowState())) {
+  : window_state_(std::make_unique<bb3d::WindowState>(bb3d::WindowState())),
+    glfw_window(OpenglSetup(window_state_.get()), &glfwDestroyWindow) {
   g_argv0 = argv0;
-  glfw_window = OpenglSetup(window_state_.get());
 };
 
 Window::~Window() {
-  glfwDestroyWindow(glfw_window);
   glfwTerminate();
 };
 
 void Window::Close() {
-  glfwSetWindowShouldClose(glfw_window, GLFW_TRUE);
+  glfwSetWindowShouldClose(glfw_window.get(), GLFW_TRUE);
 }
 
-bool Window::ShouldClose() { return glfwWindowShouldClose(glfw_window) != 0; }
+bool Window::ShouldClose() { return glfwWindowShouldClose(glfw_window.get()) != 0; }
 
-void Window::SwapBuffers() { glfwSwapBuffers(glfw_window); }
+void Window::SwapBuffers() { glfwSwapBuffers(glfw_window.get()); }
 
 void Window::PollEvents() { glfwPollEvents(); }
 
 Window::Size Window::GetSize() const {
   Window::Size window_size{};
-  glfwGetWindowSize(glfw_window, &window_size.width, &window_size.height);
+  glfwGetWindowSize(glfw_window.get(), &window_size.width, &window_size.height);
   return window_size;
 }
 
@@ -288,7 +287,7 @@ glm::mat4 Window::GetProjectionTransformation() const {
 glm::mat4 Window::GetOrthographicProjection() const {
   // projection transformation
   Window::Size window_size = GetSize();
-  glfwGetWindowSize(glfw_window, &window_size.width, &window_size.height);
+  glfwGetWindowSize(glfw_window.get(), &window_size.width, &window_size.height);
   window_size.width = std::max(window_size.width, 1);
   window_size.height = std::max(window_size.height, 1);
   return glm::ortho(0.0F, static_cast<float>(window_size.width), 0.0F,

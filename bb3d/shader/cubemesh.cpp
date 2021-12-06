@@ -12,10 +12,10 @@ namespace bb3d {
 
 Cubemesh::Cubemesh()
     : shader_(Window::GetBazelRlocation("bb3d/shader/cubemesh.vs"),
-              Window::GetBazelRlocation("bb3d/shader/cubemesh.fs")) {
-  num_indices_ = 0;
-  vertex_buffer_size_ = 0;
-  index_buffer_size_ = 0;
+              Window::GetBazelRlocation("bb3d/shader/cubemesh.fs")),
+      num_indices_(0),
+      vertex_buffer_size_(0),
+      index_buffer_size_(0) {
 
   // set up vertex data (and buffer(s)) and configure vertex attributes
   // ------------------------------------------------------------------
