@@ -1,6 +1,7 @@
 #include "freetype.hpp"
 
 #include <GL/glew.h>            // for GLchar, glBindTexture, glTexParameteri, GL_TEXTURE_2D
+#include <ft2build.h>
 #include <freetype/freetype.h>  // for FT_FaceRec_, FT_GlyphSlotRec_, FT_Done_Face, FT_Done_F...
 #include <freetype/ftimage.h>   // for FT_Bitmap, FT_Vector
 
